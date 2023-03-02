@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include "Rekurzio_Functions.h"
 using namespace std;
 
 int *initializeArray(int numberOfElements){
@@ -66,7 +67,7 @@ int main() {
     printArray(t,n);
     printReverseArray(t,n);
     return 0;
-    */
+
     int n,m;
     int **t;
     ifstream be("be.txt");
@@ -75,5 +76,7 @@ int main() {
     t=initializeMatrix(n,m);
     readMatrix(t,n,m,"be.txt");
     printMatrix(t,n,m);
-
+    */
+    //printDigitsOfNumberReverse(1234);
+    printf("%0.1f",averageDigitsOfNumber(1234,0,0));
 }
