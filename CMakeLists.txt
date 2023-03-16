@@ -3,4 +3,4 @@ project(DSA2_2023)
 
 set(CMAKE_CXX_STANDARD 23)
 
-add_executable(DSA2_2023 main.cpp Rekurzio_Functions.cpp Rekurzio_Functions.h)
+add_executable(DSA2_2023 main_1.cpp Rekurzio_Functions.cpp Rekurzio_Functions.h main.cpp functions.cpp functions.h)
