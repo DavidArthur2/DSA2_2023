@@ -1,64 +1,52 @@
 //
-// Created by david.arthur on 5/11/2023.
+// Created by david.arthur on 5/25/2023.
 //
 
 #include <iostream>
 #include <fstream>
+#include <string.h>
 
 using namespace std;
+char *targyak[50];
+bool helyes(int *x, int k){
+    if(strcmp(targyak[x[1]],"Adat es alg 2") != 0)return false;
 
+    for(int i=0;i<k;i++){
+        if(x[i]==x[k])return false;
 
-
-struct ellista{
-    int el1,el2,suly;
-};
-
-bool kore(ellista *lista,int elsz, ellista el){
-    int ok=0;
-    for(int i=0;i<elsz;i++)
-    {
-        if(lista[i].el1 == el.el1 || lista[i].el1 == el.el2)ok++;
-        //if(lista[i].el2 == el.el1 || lista[i].el2 == el.el2)ok++;
     }
-    if(ok>=2)return true;
-    return false;
+    return true;
 }
-int comp3(const void*a, const void*b){
-    int sulya=(*(int*)a);
-    int sulyb=(*(int*)b);
-
-    if(sulya>sulyb)return 1;
-    else if(sulya<sulyb)return -1;
-    return 0;
+void kiir(int *x, int k){
+    for(int i=0;i<k;i++)
+        cout << targyak[x[i]] << ';';
+    cout << endl;
 }
-ellista* kruskal(ellista *lista,int elsz,int csp){
-    ellista *el=(ellista*)malloc((csp-1)*sizeof(ellista));
-    int k=0;
-    for(int i=0;i<(csp-1) && k<elsz;i++){
-        if(!kore(el,i,lista[k])){
-            el[i]=lista[k++];
-        }
-        else{
-            i--;
-            k++;
+void bt(int *x,int n, int k){
+    for(x[k]=0;x[k]<n;x[k]++){
+        if(helyes(x,k)) {
+            if (k < n - 1) {
+                bt(x,n,k+1);
+            }
+            else
+                kiir(x,n);
         }
     }
-    if(k==elsz){cout<<"Nincs megoldas"<<endl;return nullptr;}
-    return el;
 }
+
 int main(){
-    ifstream be("graph.txt");
-    int csp,el;
-    be >> csp >> el;
-    ellista *elek=(ellista*)malloc(el*sizeof(ellista));
-    for(int i=0;i<el;i++){
-        be >> elek[i].el1 >> elek[i].el2 >> elek[i].suly;
+    freopen("be.txt","r",stdin);
+    char *line=(char*)malloc(sizeof(char)*2);
+    int *x;
+    int n;
+    cin >> n;
+    cin.getline(line,1);
+    x=(int*)malloc(sizeof(int)*n);
+    for(int i=0;i<n;i++) {
+        targyak[i]=(char*)malloc(sizeof(char)*50);
+        cin.getline(targyak[i], 50);
     }
 
-    qsort(elek,el,sizeof(ellista), comp3);
-
-    ellista *fa=kruskal(elek,el,csp);
-
-    for(int i=0;i<(csp-1);i++)cout << fa[i].el1 << " " << fa[i].el2 << endl;
+    bt(x,n,0);
 
 }
